@@ -1,5 +1,7 @@
 # React Stripe Payment Prototype
 
+![Home Screenshot](./client/src/images/home-screenshot.png)
+
 ## Description
 
 Learn Stripe payments by building a React/Express prototype following guidance provided by [Stripe documentation](https://stripe.com/docs/payments/accept-a-payment).
@@ -57,6 +59,7 @@ Server:
 On the payment screen, to confirm that your integration works correctly, simulate transactions without moving any money, using special values in test mode. More details can be found in the (Stripe documentation)[https://stripe.com/docs/testing].
 
 ex. Credit Card
+
 ```
 Country: United States (US)
 Brand: Visa
