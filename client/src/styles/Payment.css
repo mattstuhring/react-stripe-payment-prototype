@@ -1,0 +1,23 @@
+#payment {
+  margin-top: 40px;
+}
+
+#payment .wallet-img {
+  width: 80%;
+}
+
+#payment .wallet-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#checkout-form {
+  width: 80%;
+}
+
+#payment .element-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
