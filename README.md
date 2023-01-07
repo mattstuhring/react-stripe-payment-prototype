@@ -4,7 +4,7 @@
 
 ## Description
 
-Learn Stripe payments by building a React/Express prototype following guidance provided by [Stripe documentation](https://stripe.com/docs/payments/accept-a-payment).
+Learn Stripe payments by building a React/Express prototype following guidance provided by [Stripe documentation](https://stripe.com/docs/payments/quickstart).
 
 ## Getting Started
 
@@ -38,11 +38,11 @@ Server:
    $ npm install
    ```
 
-2. Create `.env` file in `/server` directory, and add your Stripe secret key following `.env.example`.
-
-3. If required, update `STRIPE_PUBLIC_KEY` in the React `Payment` component located in the `/client` directory.
-
-4. Start the server
+2. Add your stripe keys which can be found here: https://dashboard.stripe.com/apikeys
+  - Create `.env` file in `/server` directory, and add your `STRIPE_SECRET_KEY` following `.env.example`.
+  - If required, update `STRIPE_PUBLIC_KEY` in the React `Payment` component located in the `/client` directory.
+ 
+3. Start the server.
 
    You can start dev servers in the root directory using the command:
 

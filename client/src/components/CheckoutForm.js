@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
-import { PaymentElement } from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  LinkAuthenticationElement
+} from '@stripe/react-stripe-js';
 
 export default class CheckoutForm extends React.Component {
   constructor(props) {
@@ -8,8 +11,7 @@ export default class CheckoutForm extends React.Component {
 
     this.state = {
       email: '',
-      message: null,
-      isLoading: false
+      message: null
     };
   }
 
@@ -19,35 +21,10 @@ export default class CheckoutForm extends React.Component {
     });
   };
 
-  componentDidMount = async () => {
-    const { stripe, clientSecret } = this.props;
-
-    if (!stripe || !clientSecret) {
-      return;
-    }
-
-    let message;
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case 'succeeded':
-          message = 'Payment succeeded!';
-          break;
-        case 'processing':
-          message = 'Your payment is processing.';
-          break;
-        case 'requires_payment_method':
-          message = 'Your payment was not successful, please try again.';
-          break;
-        default:
-          message = 'Something went wrong.';
-          break;
-      }
-    });
-
-    console.log('Did mount message: ' + message);
-
+  onChangeStripeEmail = (event) => {
+    const { email } = event.value;
     this.setState({
-      message
+      email
     });
   };
 
@@ -57,18 +34,15 @@ export default class CheckoutForm extends React.Component {
     const { email } = this.state;
 
     if (!stripe || !elements) {
-      console.log('Stripe.js has not loaeded yet');
+      console.log('Stripe.js has not loaded yet');
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
-    this.setState({ isLoading: true });
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: 'http://localhost:3000/payment/success',
         receipt_email: email
       }
@@ -84,13 +58,11 @@ export default class CheckoutForm extends React.Component {
         message: 'An unexpected error occured'
       });
     }
-
-    this.setState({ isLoading: false });
   };
 
   render() {
     const { stripe, elements } = this.props;
-    const { isLoading, message, email } = this.state;
+    const { message } = this.state;
 
     const paymentElementOptions = {
       layout: 'tabs'
@@ -101,20 +73,17 @@ export default class CheckoutForm extends React.Component {
         <Card.Header as='h5'>Payment Details</Card.Header>
         <Card.Body>
           <Form onSubmit={this.handleSubmit}>
-            <Form.Group className='mb-3' controlId='formBasicEmail'>
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name='email'
-                type='email'
-                placeholder='Enter email'
-                onChange={this.onChange}
-                value={email}
-              />
-              <Form.Text className='text-muted'>
-                We'll send you an email receipt, and never share your email with
-                anyone else.
-              </Form.Text>
-            </Form.Group>
+
+            <LinkAuthenticationElement
+              id='link-authentication-element'
+              onChange={(e) => this.onChangeStripeEmail(e)}
+            />
+            <p>
+              <small>
+                We'll send an email receipt, and never share email with anyone
+                else.
+              </small>
+            </p>
 
             <div className='mt-2'>
               <PaymentElement
@@ -125,23 +94,14 @@ export default class CheckoutForm extends React.Component {
 
             <div className='d-grid mt-4'>
               <Button
-                disabled={isLoading || !stripe || !elements}
+                disabled={!stripe || !elements}
                 id='submit'
                 type='submit'
                 variant='success'
               >
-                <span id='button-text'>
-                  {isLoading ? (
-                    <div className='spinner' id='spinner'></div>
-                  ) : (
-                    'Pay now'
-                  )}
-                </span>
+                Pay now
               </Button>
             </div>
-
-            {/* Show any error or success messages */}
-            {message && <div id='payment-message'>{message}</div>}
           </Form>
         </Card.Body>
       </Card>

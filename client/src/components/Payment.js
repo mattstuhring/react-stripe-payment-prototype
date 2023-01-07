@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Payment.css';
 import wallet from '../images/wallet.jpg';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import CheckoutForm from './CheckoutForm';
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -24,7 +24,9 @@ export default class Payment extends React.Component {
     const response = await fetch('/api/payments/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
+      body: JSON.stringify({
+        items: [{ id: 'Product1' }, { id: 'Product2' }, { id: 'Product3' }]
+      })
     });
     const result = await response.json();
 
@@ -48,18 +50,15 @@ export default class Payment extends React.Component {
         <Row>
           <Col>
             <div>
-              <h1>
-                Payment
-              </h1>
+              <h1>Payment</h1>
             </div>
-
             <hr className='mt-4' />
           </Col>
         </Row>
 
         <Row>
           <Col sm={6} className='element-container'>
-            {clientSecret && (
+            {clientSecret && stripePromise && (
               <Elements stripe={stripePromise} options={options}>
                 <ElementsConsumer>
                   {({ stripe, elements }) => (
@@ -81,3 +80,18 @@ export default class Payment extends React.Component {
     );
   }
 }
+
+export const InjectedCheckoutForm = (props) => {
+  const { clientSecret } = props;
+  return (
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CheckoutForm
+          stripe={stripe}
+          elements={elements}
+          clientSecret={clientSecret}
+        />
+      )}
+    </ElementsConsumer>
+  );
+};
