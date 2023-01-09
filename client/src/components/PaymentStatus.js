@@ -3,7 +3,7 @@ import { useStripe, Elements } from '@stripe/react-stripe-js';
 import { withNavigate } from '../withNavigate';
 import { loadStripe } from '@stripe/stripe-js';
 import '../styles/PaymentStatus.css';
-import { Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import receipt from '../images/receipt.jpg';
 import barcode from '../images/barcode.png';
 import { toast } from 'react-toastify';
