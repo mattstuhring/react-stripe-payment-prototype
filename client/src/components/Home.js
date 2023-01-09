@@ -17,7 +17,7 @@ export default class Home extends React.Component {
         <Row>
           <Col>
             <h1>Welcome to PayFac</h1>
-            <hr className='mt-4 mb-5' />
+            <hr className='mt-4 mb-3' />
           </Col>
         </Row>
         <Row>
@@ -59,7 +59,7 @@ export default class Home extends React.Component {
                   Learn more
                 </Button>{' '}
                 <Link className='btn btn-success' to='/cart'>
-                  Make a payment
+                  Go shopping
                 </Link>
               </div>
             </div>

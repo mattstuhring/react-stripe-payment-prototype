@@ -33,17 +33,17 @@ export default class CheckoutForm extends React.Component {
     const { stripe, elements } = this.props;
     const { email } = this.state;
 
+    // Stripe.js has not yet loaded.
+    // Make sure to disable form submission until Stripe.js has loaded.
     if (!stripe || !elements) {
       console.log('Stripe.js has not loaded yet');
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000/payment/success',
+        return_url: 'http://localhost:3000/payment/payment-status',
         receipt_email: email
       }
     });
@@ -61,8 +61,7 @@ export default class CheckoutForm extends React.Component {
   };
 
   render() {
-    const { stripe, elements } = this.props;
-    const { message } = this.state;
+    const { stripe, elements, total } = this.props;
 
     const paymentElementOptions = {
       layout: 'tabs'
@@ -73,6 +72,7 @@ export default class CheckoutForm extends React.Component {
         <Card.Header as='h5'>Payment Details</Card.Header>
         <Card.Body>
           <Form onSubmit={this.handleSubmit}>
+            <h3>{`Total: $${total / 100}`}</h3>
 
             <LinkAuthenticationElement
               id='link-authentication-element'

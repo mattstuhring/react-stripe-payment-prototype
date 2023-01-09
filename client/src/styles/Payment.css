@@ -16,6 +16,10 @@
   width: 80%;
 }
 
+#checkout-form form h3 {
+  text-align: center;
+}
+
 #payment .element-container {
   display: flex;
   align-items: center;

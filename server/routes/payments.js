@@ -1,14 +1,10 @@
-var express = require('express');
-var router = express.Router();
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const express = require('express');
+const router = express.Router();
 
 // Mock products database for testing
-const products = [
-  { id: 'Product1', price: 100, qty: 1 },
-  { id: 'Product2', price: 200, qty: 1 },
-  { id: 'Product3', price: 300, qty: 1 }
-];
+const products = require('../data/products.json');
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Calculate the order total on the server to prevent
 // people from directly manipulating the amount on the client
@@ -18,7 +14,7 @@ const calculateOrderAmount = (items) => {
   }
 
   const result = products.filter((product) => {
-    return product.id !== items.id;
+    return items.find((mp) => mp.id === product.id);
   });
 
   if (!result || result.length === 0) {
@@ -33,11 +29,13 @@ const calculateOrderAmount = (items) => {
 };
 
 /* POST */
-router.post('/create-payment-intent', async (req, res, next) => {
+router.post('/api/payments/create-payment-intent', async (req, res, next) => {
   const { items } = req.body;
 
+  console.log(items);
+
   try {
-    // Stripe uses a PaymentIntent object to represent your intent to collect payment from a customer, 
+    // Stripe uses a PaymentIntent object to represent your intent to collect payment from a customer,
     // tracking charge attempts and payment state changes throughout the process.
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
@@ -45,7 +43,8 @@ router.post('/create-payment-intent', async (req, res, next) => {
     });
 
     res.send({
-      clientSecret: paymentIntent.client_secret
+      clientSecret: paymentIntent.client_secret,
+      total: paymentIntent.amount
     });
   } catch (err) {
     console.error(err);

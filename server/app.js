@@ -1,16 +1,19 @@
 require('dotenv').config();
-
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+// Routers
 const indexRouter = require('./routes/index');
 const paymentsRouter = require('./routes/payments');
+const productsRouter = require('./routes/products');
+
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+// Config
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,15 +21,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/api/', indexRouter);
-app.use('/api/payments/', paymentsRouter);
+app.use(indexRouter);
+app.use(paymentsRouter);
+app.use(productsRouter);
 
 // 404 Handling
 app.use((_req, res, _next) => {
   res.sendStatus(404);
 });
 
-// Error Handling
+// Server Error Handling
 app.use((err, req, res, next) => {
   console.error(err.message);
 

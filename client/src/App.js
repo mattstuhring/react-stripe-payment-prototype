@@ -4,13 +4,17 @@ import Home from './components/Home';
 import { Navbar, Container } from 'react-bootstrap';
 import { Routes, Route } from 'react-router-dom';
 import Payment from './components/Payment';
-import Success from './components/Success';
+import PaymentStatus from './components/PaymentStatus';
 import Cart from './components/Cart';
 import poweredByStripe from './images/powered-by-stripe.png';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div id='app'>
+      <ToastContainer />
+
       <Navbar sticky='top' bg='dark' variant='dark'>
         <Container>
           <Navbar.Brand href='/'>
@@ -40,7 +44,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/payment' element={<Payment />} />
-          <Route path='/payment/success' element={<Success />} />
+          <Route path='/payment/payment-status' element={<PaymentStatus />} />
         </Routes>
       </Container>
 

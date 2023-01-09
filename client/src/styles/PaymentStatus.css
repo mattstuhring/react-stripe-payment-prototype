@@ -1,0 +1,42 @@
+#payment-status {
+  margin-top: 60px;
+}
+
+#payment-status .receipt-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#payment-status .card {
+  width: 450px;
+}
+
+#payment-status .card .card-body {
+  padding: 35px 45px 0px 45px;
+}
+
+#payment-status .card-title {
+  font-size: 50px;
+}
+
+#payment-status .receipt-img {
+  width: 80%;
+}
+
+#payment-status .receipt-img-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+#payment-status .barcode-img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#payment-status .barcode-img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 35%;
+}
