@@ -4,16 +4,9 @@ import { Link } from 'react-router-dom';
 import { Button, Row, Col } from 'react-bootstrap';
 import onlineBanking from '../images/online-banking.jpg';
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div id='home'>
+const Home = () => {
+  return (
+    <div id='home'>
         <Row>
           <Col>
             <h1>Welcome to PayFac</h1>
@@ -66,6 +59,7 @@ export default class Home extends React.Component {
           </Col>
         </Row>
       </div>
-    );
-  }
+  )
 }
+
+export default Home;

@@ -34,8 +34,6 @@ class Payment extends React.Component {
     });
     const result = await response.json();
 
-    console.log(result.total);
-
     this.setState({
       clientSecret: result.clientSecret,
       total: result.total

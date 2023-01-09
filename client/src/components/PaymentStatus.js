@@ -39,7 +39,6 @@ const PaymentStatusResult = () => {
 
     // Retrieve the PaymentIntent
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log(paymentIntent);
       switch (paymentIntent.status) {
         case 'succeeded':
           toast.success('Success! Payment received.');

@@ -32,8 +32,6 @@ const calculateOrderAmount = (items) => {
 router.post('/api/payments/create-payment-intent', async (req, res, next) => {
   const { items } = req.body;
 
-  console.log(items);
-
   try {
     // Stripe uses a PaymentIntent object to represent your intent to collect payment from a customer,
     // tracking charge attempts and payment state changes throughout the process.

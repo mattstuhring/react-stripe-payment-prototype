@@ -4,7 +4,6 @@ const products = require('../data/products.json');
 
 /* GET */
 router.get('/api/products', (req, res, next) => {
-  console.log('GET products route');
   res.status(200).send({ products });
 });
 
