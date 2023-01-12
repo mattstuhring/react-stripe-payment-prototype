@@ -4,7 +4,17 @@
 
 ## Description
 
-Learn Stripe payments by building a React/Express prototype following guidance provided by [Stripe documentation](https://stripe.com/docs/payments/quickstart).
+Learn Stripe payments by building a React/Express prototype following guidance provided by [Stripe quickstart](https://stripe.com/docs/payments/quickstart) which uses the Payment Intents API.
+
+#### What is Stripe Payment Intents API?
+
+The API allows you to build a payments integration that can handle complexity. This API tracks a payment, from initial creation through the entire checkout process, and triggers additional authentication steps when required.
+
+See more about The [Payment Intents API](https://stripe.com/docs/payments/payment-intents) in the Stripe Docs.
+
+#### Here is the Payment Intent sequence diagram.
+
+![Stripe Payment Intent API Flow](./client/src/images/stripe-payment-flow.png)
 
 ## Getting Started
 

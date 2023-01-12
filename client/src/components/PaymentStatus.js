@@ -43,22 +43,18 @@ const PaymentStatusResult = () => {
         case 'succeeded':
           toast.success('Success! Payment received.');
           break;
-
         case 'processing':
           toast.warn(
             "Payment processing. We'll update you when payment is received."
           );
           break;
-
         case 'requires_payment_method':
           toast.error('Payment failed. Please try another payment method.');
           this.props.navigate('/cart');
           break;
-
         default:
           toast.error('Something went wrong.');
           this.props.navigate('/cart');
-          break;
       }
 
       setId(paymentIntent.id);
